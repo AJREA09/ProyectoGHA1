@@ -1,0 +1,32 @@
+# Archivo de configuración para GitHub Actions
+# Nombre del workflow
+name: DevOps
+
+# Triggers: Ejecutar cuando haya un push o pull request en la rama "main"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Permite ejecutar manualmente desde la pestaña Actions en GitHub
+workflow_dispatch:
+
+jobs:
+  # Define un job llamado "build"
+  build:
+    runs-on: ubuntu-latest  # Usa la última versión de Ubuntu como runner
+
+    steps:
+      # Clona el repositorio en el runner
+      - uses: actions/checkout@v4
+
+      # Ejecuta un comando simple
+      - name: Run a one-line script
+        run: echo Prueba, CI
+
+      # Ejecuta múltiples comandos en secuencia
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
