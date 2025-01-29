@@ -1,25 +1,30 @@
-name: Deploy HTML to GitHub Pages
+# Archivo de configuración para GitHub Actions
+# Nombre del workflow
+name: DevOps
 
+# Triggers: Ejecutar cuando haya un push, pull request o ejecución manual
 on:
   push:
-    branches:
-      - main  # Ejecutar el despliegue cuando hagas push en main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:  # <- CORREGIDO: Debe estar dentro de "on"
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  # Define un job llamado "build"
+  build:
+    runs-on: ubuntu-latest  # Usa la última versión de Ubuntu como runner
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # Clona el repositorio en el runner
+      - uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+      # Ejecuta un comando simple
+      - name: Run a one-line script
+        run: echo "Prueba, CI"
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: .  # Subir todos los archivos al servidor de GitHub Pages
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+      # Ejecuta múltiples comandos en secuencia
+      - name: Run a multi-line script
+        run: |
+          echo "Add other actions to build,"
+          echo "test, and deploy your project."
