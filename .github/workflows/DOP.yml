@@ -2,15 +2,13 @@
 # Nombre del workflow
 name: DevOps
 
-# Triggers: Ejecutar cuando haya un push o pull request en la rama "main"
+# Triggers: Ejecutar cuando haya un push, pull request o ejecución manual
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-# Permite ejecutar manualmente desde la pestaña Actions en GitHub
-workflow_dispatch:
+  workflow_dispatch:  # <- CORREGIDO: Debe estar dentro de "on"
 
 jobs:
   # Define un job llamado "build"
@@ -23,10 +21,10 @@ jobs:
 
       # Ejecuta un comando simple
       - name: Run a one-line script
-        run: echo Prueba, CI
+        run: echo "Prueba, CI"
 
       # Ejecuta múltiples comandos en secuencia
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "Add other actions to build,"
+          echo "test, and deploy your project."
